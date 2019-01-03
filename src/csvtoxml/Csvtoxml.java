@@ -56,7 +56,7 @@ public class Csvtoxml {
             //Assuming the first row contains DTD
             String[] schema = reader.nextLine().split(",");
 
-            while (reader.hasNextLine()) {
+            while (reader.hasNextLine()) {         	
                 String[] info = reader.nextLine().split(",");
 
                 Element person = doc.createElement(this.childroot);

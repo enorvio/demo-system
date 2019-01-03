@@ -55,7 +55,6 @@ public class Reader {
 	public Tree createTree(String startTag) {
 		Tree t = new Tree(this.getNextLine());
 		this.fillTree(t.getRoot(), startTag);
-		t.printTree();
 		return t;
 	}
 	
