@@ -61,16 +61,27 @@ public class Node {
         }
     }
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> cf3af1e02443c454064e787fc211f4e9acdf9cf8
     @Override
     public String toString() {
         String s = "";
         if (this.data instanceof String[]) {
             String[] data = (String[]) this.data;
+<<<<<<< HEAD
             s = data[0] + " " + data[1]; 
                 return s;
             }
         
+=======
+            s = data[0] + " " + data[1] + " " + this.children.size();
+            if (this.parent != null) {
+                return this.parent.toString() + " " + s;
+            }
+        }
+>>>>>>> cf3af1e02443c454064e787fc211f4e9acdf9cf8
 
         if (this.data instanceof Table) {
             Table table = (Table) this.data;
@@ -78,5 +89,8 @@ public class Node {
         }
         return s;
     }
+<<<<<<< HEAD
     
+=======
+>>>>>>> cf3af1e02443c454064e787fc211f4e9acdf9cf8
 }

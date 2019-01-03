@@ -1,5 +1,4 @@
 package main;
-import tree.*;
 
 import java.io.FileNotFoundException;
 import GUI.graphic;
@@ -17,27 +16,17 @@ public class Main {
     public static void main(String args[]) throws ParserConfigurationException, FileNotFoundException {
         new graphic();
         try {
-            //Csvtoxml converter = new Csvtoxml("Persons", "Person", new File("src/persons/Person.csv"), "Person.xml");
-            //converter.convertCSVtoXML();
-            xmlReader.Reader reader1 = new xmlReader.Reader("src/invoices/invoices1.xml");
-            tree.Tree t = reader1.createTree("Invoices1");
-            xmlReader.Reader reader2 = new xmlReader.Reader("src/invoices/invoices2.xml");
-            tree.Tree t1 = reader2.createTree("Invoices2");
-            String[] attributes = {"OrderId", "PersonId", "OrderDate", "TotalPrice"};
-            Table invoices = t.subtreeToTable(attributes, t.getRoot());
-            System.out.println(invoices.toString());
-           
+            Csvtoxml converter = new Csvtoxml("Persons", "Person", new File("src\\persons\\Person.csv"), "Person.xml");
+            converter.convertCSVtoXML();
+            xmlReader.Reader reader = new xmlReader.Reader("src\\invoices\\invoices1.xml");
+            reader.createTree("Invoices");
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         
-<<<<<<< HEAD
-                Scanner reader = new Scanner(new File("src/persons/Person.csv"));
-=======
                 Scanner reader = new Scanner(new File("demo-system\\src\\persons\\Person.csv"));
->>>>>>> cf3af1e02443c454064e787fc211f4e9acdf9cf8
 
         String[] attributes = reader.nextLine().split(",");
 
