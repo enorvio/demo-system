@@ -33,11 +33,6 @@ public class Main {
             e.printStackTrace();
         }
         
-<<<<<<< HEAD
-                Scanner reader = new Scanner(new File("src/persons/Person.csv"));
-=======
-                Scanner reader = new Scanner(new File("demo-system\\src\\persons\\Person.csv"));
->>>>>>> cf3af1e02443c454064e787fc211f4e9acdf9cf8
 
         String[] attributes = reader.nextLine().split(",");
 
