@@ -5,11 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import tree.Node;
+import tree.Tree;
 
-/**
- *
- * @author Valter
- */
 public class Table implements Comparable<Table> {
 
     private final String[] attributes;
@@ -86,5 +84,15 @@ public class Table implements Comparable<Table> {
     @Override
     public int compareTo(Table o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Tree TabletoTree() {
+        Node root = new Node(null, this.name);
+        Tree tree = new Tree(root);
+        for (Row row : this.rows) {
+            Tree subtree = row.RowtoTree("row_name: " + Integer.toString(row.hashCode()));
+            tree.mergeSubtreeToRoot(subtree);
+        }
+        return tree;
     }
 }

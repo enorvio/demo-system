@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import tree.Node;
 import tree.Tree;
 
-/**
- *
- * @author Valter
- */
 public class SubtableCategory {
 
     private final ArrayList<Table> tables;

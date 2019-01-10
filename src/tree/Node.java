@@ -61,16 +61,19 @@ public class Node {
         }
     }
 
-    
     @Override
     public String toString() {
         String s = "";
+
+        if (this.data instanceof String) {
+            s = (String) this.data;
+        }
+
         if (this.data instanceof String[]) {
             String[] data = (String[]) this.data;
-            s = data[0] + " " + data[1]; 
-                return s;
-            }
-        
+            s = data[0] + " " + data[1];
+            return s;
+        }
 
         if (this.data instanceof Table) {
             Table table = (Table) this.data;
@@ -78,5 +81,5 @@ public class Node {
         }
         return s;
     }
-    
+
 }
