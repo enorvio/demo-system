@@ -8,31 +8,18 @@ import java.io.File;
 import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
 import relationalCategory.Row;
-import relationalCategory.SubtabelCategory;
+import relationalCategory.SubtableCategory;
 import relationalCategory.Table;
 import tree.Tree;
 
 public class Main {
 
     public static void main(String args[]) throws ParserConfigurationException, FileNotFoundException {
-        new graphic();
-        try {
-            //Csvtoxml converter = new Csvtoxml("Persons", "Person", new File("src/persons/Person.csv"), "Person.xml");
-            //converter.convertCSVtoXML();
-            xmlReader.Reader reader1 = new xmlReader.Reader("src/invoices/invoices1.xml");
-            tree.Tree t = reader1.createTree("Invoices1");
-            xmlReader.Reader reader2 = new xmlReader.Reader("src/invoices/invoices2.xml");
-            tree.Tree t1 = reader2.createTree("Invoices2");
-            String[] attributes = {"OrderId", "PersonId", "OrderDate", "TotalPrice"};
-            Table invoices = t.subtreeToTable(attributes, t.getRoot());
-            System.out.println(invoices.toString());
-           
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         
+
+        	new graphic();
+        
+                Scanner reader = new Scanner(new File("src/persons/Person.csv"));
 
         String[] attributes = reader.nextLine().split(",");
 
@@ -72,7 +59,7 @@ public class Main {
         //System.out.println(table3.compare(table2));
         
         //Construction the subtable category (tree structure) assuming that all the tables are added before construction and they are added in right order.
-        SubtabelCategory category = new SubtabelCategory("persons");
+        SubtableCategory category = new SubtableCategory("persons");
         category.addTable(persons);
         category.addTable(table3);
         category.addTable(table1);
@@ -80,7 +67,7 @@ public class Main {
         Tree tree = category.constructSubtableCategory();
         //System.out.println(tree.getRoot().getChildren().size());
         //tree.printTree();
-        tree.printGraphicTree();
+        //tree.printGraphicTree();
     }
 
 }

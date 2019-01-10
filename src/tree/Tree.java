@@ -6,7 +6,7 @@ import relationalCategory.*;
 public class Tree {
 
     private Node root;
-
+    
     public Tree(Object rootData) {
         this.root = new Node(null, rootData);
     }
@@ -50,7 +50,6 @@ public class Tree {
 		}
 		return subtreeTable;
 	}
-
 }
     	
     

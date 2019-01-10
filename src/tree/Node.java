@@ -1,4 +1,3 @@
-﻿
 package tree;
 
 import java.util.ArrayList;
@@ -62,21 +61,22 @@ public class Node {
         }
     }
 
+    
     @Override
     public String toString() {
         String s = "";
         if (this.data instanceof String[]) {
             String[] data = (String[]) this.data;
-            s = data[0] + " " + data[1] + " " + this.children.size();
-            if (this.parent != null) {
-                return this.parent.toString() + " " + s;
+            s = data[0] + " " + data[1]; 
+                return s;
             }
-        }
+        
+
         if (this.data instanceof Table) {
             Table table = (Table) this.data;
             s = table.getName();
         }
         return s;
     }
-
+    
 }
