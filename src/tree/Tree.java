@@ -1,6 +1,5 @@
 package tree;
 
-import java.util.ArrayList;
 import relationalCategory.*;
 
 public class Tree {
@@ -38,8 +37,13 @@ public class Tree {
         String[] row = new String[l];
         for (int i = 0; i < l; i++) {
             if (!n.getChildren().isEmpty()) {
-                String[] value = (String[]) n.getChildren().get(i).getData();
-                row[i] = value[1];
+                if (n.getChildren().get(i).getData() instanceof String[]) {
+                    String[] value = (String[]) n.getChildren().get(i).getData();
+                    row[i] = value[1];
+                } else if (n.getChildren().get(i).getData() instanceof String) {
+                    String value = (String) n.getChildren().get(i).getChildren().get(0).getData();
+                    row[i] = value;
+                }
             }
         }
         Row record = new Row(attributes, row);

@@ -13,19 +13,23 @@ public class XPathQuery {
         try {
             xmlReader.Reader reader = new xmlReader.Reader("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\invoices\\invoices3.xml");
             Tree smallTree = reader.createTree("Invoices");
+            smallTree.printGraphicTree();
+            System.out.println("");
             String[] attributes1 = {"personId", "productId", "orderDate", "totalPrice", "orderLine"};
             Table smallTreeTable = smallTree.subtreeToTable(attributes1, smallTree.getRoot());
-            System.out.println(smallTreeTable.toString());
-            smallTree.printGraphicTree();
+            smallTreeTable.printGraphicTable();
+            //System.out.println(smallTreeTable.toString());
             System.out.println(" ");
             Node newRoot = smallTree.getRoot().getChildren().get(0).getChildren().get(4);
             String[] attributes2 = {"productId", "asin", "title", "price", "brand"};
             Row smallerTreeRow = smallTree.subtreeToRow(attributes2, newRoot);
-            System.out.println(smallerTreeRow.toString());
+            Table table = new Table("table", attributes2);
+            table.addRow(smallerTreeRow);
+            //System.out.println(smallerTreeRow.toString());
+            table.printGraphicTable();
 
         } catch (FileNotFoundException | DOMException f) {
             System.out.println("Error: " + f.getMessage());
         }
     }
-
 }

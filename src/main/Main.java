@@ -1,27 +1,19 @@
 package main;
 
-import tree.*;
-
 import java.io.FileNotFoundException;
 import GUI.graphic;
-import csvtoxml.Csvtoxml;
 import java.io.File;
 import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
-import queryProcessing.SQLquery;
 import relationalCategory.Row;
 import relationalCategory.SubtableCategory;
 import relationalCategory.Table;
 import tree.Tree;
-import xmlReader.Reader;
 
 public class Main {
 
     public static void main(String args[]) throws ParserConfigurationException, FileNotFoundException {
 
-        //Reader xml = new Reader("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\invoices\\invoices1.xml");
-        //Tree tree1 = xml.createTree("<");
-        //tree1.printGraphicTree();
         new graphic();
 
         Scanner reader = new Scanner(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"));
@@ -34,10 +26,7 @@ public class Main {
             Row record = new Row(attributes, line);
             persons.addRow(record);
         }
-        //We can print the table.Many lines.
-        //System.out.println(persons.toString());
 
-        //Here we need to choose subtables. If we generate all the subtables, there are more than 2^|Persons| choices.
         String[] attributes2 = {"id", "firstName", "lastName"};
         String[] record2 = {"933", "Mahinda", "Perera"};
         Row row1 = new Row(attributes2, record2);
@@ -62,6 +51,7 @@ public class Main {
 
         //Because persons contains the subtable table1, the return value is 1.
         //System.out.println(table3.compare(table2));
+        
         //Construction the subtable category (tree structure) assuming that all the tables are added before construction and they are added in right order.
         SubtableCategory category = new SubtableCategory("persons");
         category.addTable(persons);

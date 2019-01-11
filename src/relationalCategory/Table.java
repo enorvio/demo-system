@@ -86,7 +86,7 @@ public class Table implements Comparable<Table> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Tree TabletoTree() {
+    public Tree tabletoTree() {
         Node root = new Node(null, this.name);
         Tree tree = new Tree(root);
         for (Row row : this.rows) {
@@ -94,5 +94,48 @@ public class Table implements Comparable<Table> {
             tree.mergeSubtreeToRoot(subtree);
         }
         return tree;
+    }
+
+    public void printGraphicTable() {
+        int max = 0;
+        for (String attribute : this.attributes) {
+            if (attribute.length() > max) {
+                max = attribute.length();
+            }
+        }
+        for (Row row : this.rows) {
+            for (String entry : row.getRow()) {
+                if (entry != null) {
+                    if (entry.length() > max) {
+                        max = entry.length();
+                    }
+                }
+            }
+        }
+
+        String leftAlignFormat = "| ";
+        String upAlignFormat = "+ ";
+        for (String attribute : this.attributes) {
+            leftAlignFormat += " %-" + Integer.toString(max) + "s |";
+            upAlignFormat += " %-" + Integer.toString(max) + "s +";
+        }
+        leftAlignFormat += "%n";
+        upAlignFormat += "%n";
+
+        String line = "";
+        for (int i = 0; i < max; i++) {
+            line += "-";
+        }
+
+        String[] lines = new String[this.attributes.length];
+        Arrays.fill(lines, line);
+
+        System.out.format(upAlignFormat, (Object[]) lines);
+        System.out.format(leftAlignFormat, (Object[]) this.attributes);
+        System.out.format(upAlignFormat, (Object[]) lines);
+        for (Row row : this.rows) {
+            System.out.format(leftAlignFormat, (Object[]) row.getRow());
+        }
+        System.out.format(upAlignFormat, (Object[]) lines);
     }
 }
