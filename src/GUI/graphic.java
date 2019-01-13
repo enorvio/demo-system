@@ -2,10 +2,16 @@ package GUI;
 
 import java.awt.event.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.awt.*;
 import java.io.File;
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+
 import org.w3c.dom.DOMException;
+import org.xml.sax.SAXException;
+
 import java.util.Scanner;
 import queryProcessing.SQLquery;
 import queryProcessing.XPathQuery;
@@ -56,8 +62,22 @@ public class graphic extends JFrame implements ActionListener {
                 String input = scan.nextLine();
                 switch (input) {
                     case "1":
-                        XPathQuery path = new XPathQuery();
-                        path.loadXPathQuery();
+					XPathQuery path = null;
+					try {
+						path = new XPathQuery("src/invoices/invoices1.xml", "/Invoices/Invoice.xml/Orderline/price");
+					} catch (XPathExpressionException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ParserConfigurationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (SAXException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                         break;
                     case "2":
                         try {

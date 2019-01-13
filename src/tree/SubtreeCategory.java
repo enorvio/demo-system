@@ -17,7 +17,8 @@ public class SubtreeCategory {
 	
 	public void addSubtree(Tree subtree, String name) {
 		graph.Vertex v = new Vertex(name, subtree);
-		graph.Edge e = new Edge(v, max, name);
+		this.categoryGraph.addVertex(v);
+		this.categoryGraph.addEdge(v, max, name);
 	}
 	
 	public void addRelation(Vertex x, Vertex y, Object weight) {

@@ -2,6 +2,8 @@ package main;
 
 import java.io.FileNotFoundException;
 import GUI.graphic;
+import newXmlReader.NewXMLReader;
+
 import java.io.File;
 import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,9 +17,12 @@ public class Main {
     public static void main(String args[]) throws ParserConfigurationException, FileNotFoundException {
 
         new graphic();
+        newXmlReader.NewXMLReader newreader = new newXmlReader.NewXMLReader("src/invoices/invoices1.xml");
+        newXmlReader.TreeViewer viewer = new newXmlReader.TreeViewer("src/invoices/invoices1.xml");
 
-        Scanner reader = new Scanner(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"));
-
+        //Scanner reader = new Scanner(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"));
+        Scanner reader = new Scanner(new File("src/persons/Person.csv"));
+        
         String[] attributes = reader.nextLine().split(",");
 
         Table persons = new Table("Persons", attributes);
