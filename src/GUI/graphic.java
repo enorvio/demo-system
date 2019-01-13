@@ -62,22 +62,8 @@ public class graphic extends JFrame implements ActionListener {
                 String input = scan.nextLine();
                 switch (input) {
                     case "1":
-					XPathQuery path = null;
-					try {
-						path = new XPathQuery("src/invoices/invoices1.xml", "/Invoices/Invoice.xml/Orderline/price");
-					} catch (XPathExpressionException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (ParserConfigurationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (SAXException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					XPathQuery query = new XPathQuery();
+					query.loadXPathQuery();
                         break;
                     case "2":
                         try {
