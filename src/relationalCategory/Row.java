@@ -1,5 +1,6 @@
 package relationalCategory;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import tree.Node;
 import tree.Tree;
 
@@ -31,6 +32,17 @@ public final class Row {
             root.addChild(attribute_node);
         }
         return tree;
+    }
+    
+    public DefaultMutableTreeNode RowtoMutableTree(String root_name) {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(root_name);
+        for (int i = 0; i < this.row.length; i++) {
+            DefaultMutableTreeNode attribute_node = new DefaultMutableTreeNode(this.attributes[i]);
+            root.add(attribute_node);
+            DefaultMutableTreeNode data_node = new DefaultMutableTreeNode(this.row[i]);
+            attribute_node.add(data_node);
+        }
+        return root;
     }
 
     @Override

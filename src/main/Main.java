@@ -2,11 +2,14 @@ package main;
 
 import java.io.FileNotFoundException;
 import GUI.graphic;
+import csvtoxml.Csvtoxml;
 import newXmlReader.NewXMLReader;
 
 import java.io.File;
 import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
+import newXmlReader.DOMReader;
+import newXmlReader.DOMtreeViewer;
 import relationalCategory.Row;
 import relationalCategory.SubtableCategory;
 import relationalCategory.Table;
@@ -15,14 +18,22 @@ import tree.Tree;
 public class Main {
 
     public static void main(String args[]) throws ParserConfigurationException, FileNotFoundException {
+        
+        Csvtoxml converter = new Csvtoxml("Persons", 
+                "Person", 
+                new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"), 
+                "C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.xml");
+        converter.convertCSVtoXML();
 
         new graphic();
-        newXmlReader.NewXMLReader newreader = new newXmlReader.NewXMLReader("src/invoices/invoices1.xml");
-        newXmlReader.TreeViewer viewer = new newXmlReader.TreeViewer("src/invoices/invoices1.xml");
+        newXmlReader.NewXMLReader newreader = new newXmlReader.NewXMLReader("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\invoices\\invoices1.xml");
+        newXmlReader.TreeViewer viewer = new newXmlReader.TreeViewer("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\invoices\\invoices1.xml");
 
-        //Scanner reader = new Scanner(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"));
-        Scanner reader = new Scanner(new File("src/persons/Person.csv"));
+        DOMtreeViewer doMtreeViewer = new DOMtreeViewer(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.xml"));
         
+        //Scanner reader = new Scanner(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"));
+        Scanner reader = new Scanner(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"));
+
         String[] attributes = reader.nextLine().split(",");
 
         Table persons = new Table("Persons", attributes);
@@ -56,7 +67,6 @@ public class Main {
 
         //Because persons contains the subtable table1, the return value is 1.
         //System.out.println(table3.compare(table2));
-        
         //Construction the subtable category (tree structure) assuming that all the tables are added before construction and they are added in right order.
         SubtableCategory category = new SubtableCategory("persons");
         category.addTable(persons);

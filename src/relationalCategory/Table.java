@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import tree.Node;
 import tree.Tree;
 
@@ -93,6 +95,16 @@ public class Table implements Comparable<Table> {
             Tree subtree = row.RowtoTree("row_name: " + Integer.toString(row.hashCode()));
             tree.mergeSubtreeToRoot(subtree);
         }
+        return tree;
+    }
+    
+    public DefaultTreeModel tabletoMutableTree() {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(this.name);
+        for (Row row : this.rows) {
+            DefaultMutableTreeNode subtree = row.RowtoMutableTree("row_name: " + Integer.toString(row.hashCode()));
+            root.add(subtree);
+        }
+        DefaultTreeModel tree = new DefaultTreeModel(root);
         return tree;
     }
 

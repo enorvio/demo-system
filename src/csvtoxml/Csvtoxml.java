@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package csvtoxml;
 
 import java.io.File;
@@ -21,22 +16,18 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-/**
- *
- * @author Valter
- */
 public class Csvtoxml {
 
     private String root;
     private String childroot;
     private File csvfile;
-    private File xmlfile;
+    private String xmlfile;
 
-    public Csvtoxml(String rootname, String childrootname, File csvfilename, String xmlfilename) {
+    public Csvtoxml(String rootname, String childrootname, File csvfilename, String xmlfileLocation) {
         this.root = rootname;
         this.childroot = childrootname;
         this.csvfile = csvfilename;
-        this.xmlfile = new File(xmlfilename);
+        this.xmlfile = xmlfileLocation;
     }
 
     /**
@@ -56,7 +47,7 @@ public class Csvtoxml {
             //Assuming the first row contains DTD
             String[] schema = reader.nextLine().split(",");
 
-            while (reader.hasNextLine()) {         	
+            while (reader.hasNextLine()) {
                 String[] info = reader.nextLine().split(",");
 
                 Element person = doc.createElement(this.childroot);
@@ -73,7 +64,14 @@ public class Csvtoxml {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(this.xmlfile);
+            
+            File xmlFile = new File(this.xmlfile);
+            if (xmlFile.exists())
+            {
+                xmlFile.delete();
+            }
+            
+            StreamResult result = new StreamResult(xmlFile);
 
             // Output to console for testing
             // StreamResult result = new StreamResult(System.out);
@@ -81,8 +79,7 @@ public class Csvtoxml {
 
             System.out.println("File saved!");
 
-        } catch (TransformerException pce) {
-        } catch (FileNotFoundException | DOMException e) {
+        } catch (FileNotFoundException | DOMException | TransformerException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }

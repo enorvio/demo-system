@@ -13,6 +13,7 @@ import org.w3c.dom.DOMException;
 import org.xml.sax.SAXException;
 
 import java.util.Scanner;
+import javax.swing.tree.DefaultTreeModel;
 import queryProcessing.SQLquery;
 import queryProcessing.XPathQuery;
 import xmlReader.*;
@@ -62,8 +63,8 @@ public class graphic extends JFrame implements ActionListener {
                 String input = scan.nextLine();
                 switch (input) {
                     case "1":
-					XPathQuery query = new XPathQuery();
-					query.loadXPathQuery();
+                        XPathQuery query = new XPathQuery();
+                        query.loadXPathQuery();
                         break;
                     case "2":
                         try {
@@ -71,13 +72,15 @@ public class graphic extends JFrame implements ActionListener {
                             SQLquery demo = new SQLquery(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"));
                             System.out.println("Result to the query in tree format: ");
                             Tree result = demo.loadDemoQueryTree(attributes2, "933").tabletoTree();
+                            //DefaultTreeModel defaultTreeResult = demo.loadDemoQueryTree(attributes2, "933").tabletoMutableTree();
                             result.printGraphicTree();
                             System.out.println("");
                             System.out.println("Result to the query in table format: ");
                             result.subtreeToTable(attributes2, result.getRoot()).printGraphicTable();
                         } catch (FileNotFoundException ex) {
                             System.out.println("Error: " + ex.getMessage());
-                        }   break;
+                        }
+                        break;
                     case "E":
                         break OUTER;
                     default:
