@@ -6,9 +6,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import tree.Node;
-import tree.Tree;
 
 public class Table implements Comparable<Table> {
 
@@ -57,11 +54,12 @@ public class Table implements Comparable<Table> {
 
     @Override
     public String toString() {
-        String row = "";
-        for (Row x : this.rows) {
-            row = row + x.toString() + "\n";
-        }
-        return row;
+        return this.name;
+//        String row = "";
+//        for (Row x : this.rows) {
+//            row = row + x.toString() + "\n";
+//        }
+//        return row;
     }
 
     //This compering method induces partial order to the collection of Tables (subset partial order). If tables are not comparable, method returns null.
@@ -88,24 +86,24 @@ public class Table implements Comparable<Table> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Tree tabletoTree() {
-        Node root = new Node(null, this.name);
-        Tree tree = new Tree(root);
-        for (Row row : this.rows) {
-            Tree subtree = row.RowtoTree("row_name: " + Integer.toString(row.hashCode()));
-            tree.mergeSubtreeToRoot(subtree);
-        }
-        return tree;
-    }
-    
-    public DefaultTreeModel tabletoMutableTree() {
+    public DefaultMutableTreeNode tabletoTree() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(this.name);
         for (Row row : this.rows) {
-            DefaultMutableTreeNode subtree = row.RowtoMutableTree("row_name: " + Integer.toString(row.hashCode()));
-            root.add(subtree);
+            DefaultMutableTreeNode subroot = row.RowtoTree("row_name: " + Integer.toString(row.hashCode()));
+            root.add(subroot);
         }
-        DefaultTreeModel tree = new DefaultTreeModel(root);
-        return tree;
+
+        //printTree(root, 0);
+        return root;
+    }
+
+    private void printTree(DefaultMutableTreeNode root, int i) {
+        System.out.println(String.valueOf(i) + " " + root.toString());
+        ArrayList<DefaultMutableTreeNode> children = Collections.list(root.children());
+        i++;
+        for (DefaultMutableTreeNode child : children) {
+            printTree(child, i);
+        }
     }
 
     public void printGraphicTable() {

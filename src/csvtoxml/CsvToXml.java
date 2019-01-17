@@ -16,14 +16,14 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class Csvtoxml {
+public class CsvToXml {
 
     private String root;
     private String childroot;
     private File csvfile;
     private String xmlfile;
 
-    public Csvtoxml(String rootname, String childrootname, File csvfilename, String xmlfileLocation) {
+    public CsvToXml(String rootname, String childrootname, File csvfilename, String xmlfileLocation) {
         this.root = rootname;
         this.childroot = childrootname;
         this.csvfile = csvfilename;
