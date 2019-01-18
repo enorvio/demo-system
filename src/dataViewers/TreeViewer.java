@@ -12,6 +12,7 @@ public class TreeViewer {
     private NewXMLReader reader;
     private String filename;
     private JFrame frame;
+    private JLayer layer;
 
     public TreeViewer(String filename) {
         this.filename = filename;
@@ -27,14 +28,8 @@ public class TreeViewer {
     }
 
     public TreeViewer(DefaultMutableTreeNode treeNode) {
-        this.frame = new JFrame("Tree View: " + treeNode.toString());
-        frame.setSize(800, 800);
-        frame.getContentPane().setLayout(new BorderLayout());
         JTree tree = new JTree(treeNode);
-        //printTree(treeNode, 0);
-        JScrollPane scrollPane = new JScrollPane(tree);
-        frame.getContentPane().add("Center", scrollPane);
-        frame.setVisible(true);
+        this.layer = new JLayer(tree);
     }
 
     private void printTree(DefaultMutableTreeNode root, int i) {
@@ -44,5 +39,9 @@ public class TreeViewer {
         for (DefaultMutableTreeNode child : children) {
             printTree(child, i);
         }
+    }
+    
+    public JLayer getGraphicTree() {
+        return this.layer;
     }
 }

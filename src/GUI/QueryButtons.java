@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import dataViewers.TreeViewer;
+import javax.swing.JTabbedPane;
 import queryProcessing.SQLquery;
 import queryProcessing.XPathQuery;
 import relationalCategory.Table;
@@ -48,7 +49,9 @@ public class QueryButtons extends JComponent implements ActionListener {
                 Table tableResult = demo.loadDemoQueryTree(attributes2, "933");
                 DefaultMutableTreeNode treeResult = tableResult.tabletoTree();
                 TableViewer tabelviewer = new TableViewer(tableResult);
-                TreeViewer viewer = new TreeViewer(treeResult);
+                TreeViewer treeviewer = new TreeViewer(treeResult);
+                JComponent[] components = {tabelviewer.getGraphicTable(), treeviewer.getGraphicTree()};
+                DataFrame datawindow = new DataFrame(components);
             } catch (FileNotFoundException ex) {
                 System.out.println("Error: " + ex.getMessage());
             }

@@ -9,12 +9,9 @@ import relationalCategory.Table;
 
 public class TableViewer {
     
-    private JFrame frame;
+    private JScrollPane scrollPane;
     
     public TableViewer(Table table) {
-        this.frame = new JFrame("Tree View: " + table.toString());
-        frame.setSize(800, 800);
-        frame.getContentPane().setLayout(new BorderLayout());
         Object[][] dataRows = new Object[table.getRows().size()][table.getAttributes().length];
         int i = 0;
         for (Row row : table.getRows()) {
@@ -22,9 +19,11 @@ public class TableViewer {
             i++;
         }
         JTable graphicTabel = new JTable(dataRows, table.getAttributes());
-        JScrollPane scrollPane = new JScrollPane(graphicTabel);
-        frame.getContentPane().add("Center", scrollPane);
-        frame.setVisible(true);
+        this.scrollPane = new JScrollPane(graphicTabel);
+    }
+    
+    public JScrollPane getGraphicTable() {
+        return this.scrollPane;
     }
 
 }
