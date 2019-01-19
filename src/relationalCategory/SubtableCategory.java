@@ -1,8 +1,9 @@
 package relationalCategory;
 
 import java.util.ArrayList;
-import tree.Node;
-import tree.Tree;
+import java.util.Collections;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 public class SubtableCategory {
 
@@ -23,32 +24,32 @@ public class SubtableCategory {
     }
 
     //Assuming that root (the largest table) is in the first place of the list.
-    public Tree constructSubtableCategory() {
-        Tree tree = new Tree(this.tables.get(0));
-        Node root = tree.getRoot();
+    public DefaultTreeModel constructSubtableCategory() {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(this.tables.get(0));
+        DefaultTreeModel tree = new DefaultTreeModel(root);
         for (int i = 1; i < this.tables.size(); i++) {
             findLocationInTree(this.tables.get(i), root);
         }
         return tree;
     }
 
-    private void findLocationInTree(Table table, Node current_node) {
-        ArrayList<Node> children = current_node.getChildren();
+    private void findLocationInTree(Table table, DefaultMutableTreeNode current_node) {
+        ArrayList<DefaultMutableTreeNode> children = Collections.list(current_node.children());
         if (children.isEmpty()) {
-            Node new_node = new Node(current_node, table);
-            current_node.addChild(new_node);
+            DefaultMutableTreeNode new_node = new DefaultMutableTreeNode(table);
+            current_node.add(new_node);
         } else {
             int i = 0;
-            for (Node child : children) {
-                if (null == table.compare((Table) child.getData())) {
+            for (DefaultMutableTreeNode child : children) {
+                if (null == table.compare((Table) child.getUserObject())) {
                     i++;
                     if (i == children.size()) {
-                        Node new_node = new Node(current_node, table);
-                        current_node.addChild(new_node);
+                        DefaultMutableTreeNode new_node = new DefaultMutableTreeNode(table);
+                        current_node.add(new_node);
                         break;
                     }
                 } else {
-                    switch (table.compare((Table) child.getData())) {
+                    switch (table.compare((Table) child.getUserObject())) {
                         case 0:
                             break;
                         case 1:
@@ -56,11 +57,11 @@ public class SubtableCategory {
                             findLocationInTree(table, current_node);
                             break;
                         case -1:
-                            Node new_node = new Node(current_node, table);
+                            DefaultMutableTreeNode new_node = new DefaultMutableTreeNode(table);
                             child.setParent(new_node);
-                            current_node.removeChild(child);
-                            current_node.addChild(new_node);
-                            new_node.addChild(child);
+                            current_node.remove(child);
+                            current_node.add(new_node);
+                            new_node.add(child);
                             break;
                     }
                 }

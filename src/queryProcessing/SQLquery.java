@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import relationalCategory.Row;
 import relationalCategory.Table;
-import tree.Tree;
 
 public class SQLquery {
 
