@@ -5,7 +5,7 @@ import java.io.File;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
+import org.xml.sax.helpers.DefaultHandler;
 
 public class NewXMLReader {
 

@@ -14,11 +14,12 @@ public class DataFrame {
         frame.setSize(800, 800);
         frame.getContentPane().setLayout(new BorderLayout());
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Tabel", components[0]);
-        tabbedPane.addTab("Tree", components[1]);
+        tabbedPane.addTab("Tree", components[0]);
+        for (int i = 1; i < components.length; i++) {
+            tabbedPane.addTab("Table", components[i]);
+        }
         frame.getContentPane().add("Center", tabbedPane);
         frame.setVisible(true);
-
     }
 
 }

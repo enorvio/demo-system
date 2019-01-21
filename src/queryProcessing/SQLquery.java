@@ -22,7 +22,7 @@ public class SQLquery {
         }
     }
 
-    public Table loadDemoQueryTree(String[] attributes2, String search_id) {
+    public Table loadDemoQuery(String[] attributes2, String search_id) {
         Table answer = new Table("answer", attributes2);
         for (Row row : this.persons.getRows()) {
             if (row.getRow()[0].equals(search_id)) {

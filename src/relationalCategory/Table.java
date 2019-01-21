@@ -1,6 +1,3 @@
-
-
-
 package relationalCategory;
 
 import java.util.ArrayList;
@@ -58,11 +55,6 @@ public class Table implements Comparable<Table> {
     @Override
     public String toString() {
         return this.name;
-//        String row = "";
-//        for (Row x : this.rows) {
-//            row = row + x.toString() + "\n";
-//        }
-//        return row;
     }
 
     //This compering method induces partial order to the collection of Tables (subset partial order). If tables are not comparable, method returns null.
@@ -95,20 +87,9 @@ public class Table implements Comparable<Table> {
             DefaultMutableTreeNode subroot = row.RowtoTree("row_name: " + Integer.toString(row.hashCode()));
             root.add(subroot);
         }
-
-        //printTree(root, 0);
         return root;
     }
-
-    private void printTree(DefaultMutableTreeNode root, int i) {
-        System.out.println(String.valueOf(i) + " " + root.toString());
-        ArrayList<DefaultMutableTreeNode> children = Collections.list(root.children());
-        i++;
-        for (DefaultMutableTreeNode child : children) {
-            printTree(child, i);
-        }
-    }
-
+    
     public void printGraphicTable() {
         int max = 0;
         for (String attribute : this.attributes) {

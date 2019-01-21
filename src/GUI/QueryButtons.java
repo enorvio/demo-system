@@ -15,6 +15,7 @@ import javax.swing.JTabbedPane;
 import queryProcessing.SQLquery;
 import queryProcessing.XPathQuery;
 import relationalCategory.Table;
+import tree.TreeFunctor;
 
 public class QueryButtons extends JComponent implements ActionListener {
 
@@ -46,7 +47,7 @@ public class QueryButtons extends JComponent implements ActionListener {
             try {
                 String[] attributes2 = {"id", "firstname", "surname"};
                 SQLquery demo = new SQLquery(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"));
-                Table tableResult = demo.loadDemoQueryTree(attributes2, "933");
+                Table tableResult = demo.loadDemoQuery(attributes2, "933");
                 DefaultMutableTreeNode treeResult = tableResult.tabletoTree();
                 TableViewer tabelviewer = new TableViewer(tableResult);
                 TreeViewer treeviewer = new TreeViewer(treeResult);
@@ -56,8 +57,19 @@ public class QueryButtons extends JComponent implements ActionListener {
                 System.out.println("Error: " + ex.getMessage());
             }
         } else if (e.getSource() == this.xmlButton) {
+            String[] attributes = {"personId", "productId", "orderDate", "totalPrice", "orderLine"};
             XPathQuery query = new XPathQuery();
-            query.loadXPathQuery();
+            DefaultMutableTreeNode treeResult = query.loadXPathQuery();
+            TreeFunctor functor = new TreeFunctor();
+            TreeViewer treeviewer = new TreeViewer(treeResult);
+            Table[] tableResult = functor.treeToTables(treeResult);
+            JComponent[] components = new JComponent[tableResult.length + 1];
+            components[0] = treeviewer.getGraphicTree();
+            for(int i = 1; i <= tableResult.length; i++) {
+                TableViewer tabelviewer = new TableViewer(tableResult[i - 1]);
+                components[i] = tabelviewer.getGraphicTable();
+            }
+            DataFrame datawindow = new DataFrame(components);
         } else if (e.getSource() == this.xmlButton) {
             System.out.println("Not supported yet.");
         }

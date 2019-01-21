@@ -1,14 +1,6 @@
 package newXmlReader;
 
-import java.io.File;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import javax.swing.tree.*;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.Event.*;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -18,18 +10,9 @@ import relationalCategory.*;
 
 public class UserHandler extends DefaultHandler {
 
-    boolean bInvoice = false;
-    boolean bInvoicesxml = false;
-    boolean bOrderId = false;
-    boolean bPersonId = false;
-    boolean bOrderDate = false;
-    boolean bTotalPrice = false;
-    boolean bOrderline = false;
-    boolean bproductId = false;
-    boolean basin = false;
-    boolean btitle = false;
-    boolean bprice = false;
-    boolean bbrand = false;
+    boolean bInvoice, bInvoicesxml, bOrderId, bPersonId, bOrderDate, bTotalPrice = false;
+    boolean bOrderline, bproductId, basin, btitle, bprice, bbrand = false;
+
     int currentOrderlinesId = 0;
     int j = 0;
     String[][] rows1 = new String[25][6];
@@ -46,6 +29,10 @@ public class UserHandler extends DefaultHandler {
         this.rootNode = root;
     }
 
+    public DefaultMutableTreeNode getTree() {
+        return rootNode;
+    }
+
     public Table getInvoices() {
         return invoices;
     }
@@ -54,10 +41,12 @@ public class UserHandler extends DefaultHandler {
         return orderlines;
     }
 
+    @Override
     public void startDocument() {
         currentNode = rootNode;
     }
 
+    @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         previousNode = currentNode;
         currentNode = new DefaultMutableTreeNode(qName);
@@ -88,6 +77,7 @@ public class UserHandler extends DefaultHandler {
         }
     }
 
+    @Override
     public void endDocument() throws SAXException {
         for (int j = 0; j < 25; j++) {
             if (rows1[j][0] != null) {
@@ -99,8 +89,10 @@ public class UserHandler extends DefaultHandler {
         }
     }
 
+    @Override
     public void characters(char ch[], int start, int length) throws SAXException {
-        String contents = (new String(ch, start, length));
+        String contents = (new String(ch, start, length)).trim();
+        //System.out.println(contents);
         if (!contents.equals("")) {
             currentNode.add(new DefaultMutableTreeNode(contents));
         }
@@ -134,17 +126,12 @@ public class UserHandler extends DefaultHandler {
             j++;
             bbrand = false;
         }
-
     }
 
+    @Override
     public void endElement(String uri, String qName, String lName) {
         if (currentNode.getUserObject().equals(lName)) {
             currentNode = (DefaultMutableTreeNode) currentNode.getParent();
         }
     }
-
-    public DefaultMutableTreeNode getTree() {
-        return rootNode;
-    }
-
 }
