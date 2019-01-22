@@ -79,14 +79,14 @@ public class UserHandler extends DefaultHandler {
 
     @Override
     public void endDocument() throws SAXException {
-        for (int j = 0; j < 25; j++) {
-            if (rows1[j][0] != null) {
-                invoices.addRow(new Row(attributes1, rows1[j]));
-            }
-            if (rows2[j][0] != null) {
-                orderlines.addRow(new Row(attributes2, rows2[j]));
-            }
-        }
+//        for (int j = 0; j < 25; j++) {
+//            if (rows1[j][0] != null) {
+//                invoices.addRow(new Row(attributes1, rows1[j]));
+//            }
+//            if (rows2[j][0] != null) {
+//                orderlines.addRow(new Row(attributes2, rows2[j]));
+//            }
+//        }
     }
 
     @Override
