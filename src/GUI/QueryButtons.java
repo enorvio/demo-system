@@ -15,7 +15,7 @@ import javax.swing.JTabbedPane;
 import queryProcessing.SQLquery;
 import queryProcessing.XPathQuery;
 import relationalCategory.Table;
-import tree.TreeFunctor;
+import tree.*;
 
 public class QueryButtons extends JComponent implements ActionListener {
 
