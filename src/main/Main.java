@@ -2,7 +2,7 @@ package main;
 
 import GUI.GraphicsMain;
 import java.io.FileNotFoundException;
-import csvtoxml.CsvToXml;
+import csvConverters.CsvToXml;
 import newXmlReader.NewXMLReader;
 import csvtograph.CsvToGraphPreparation;
 import dataViewers.TableViewer;

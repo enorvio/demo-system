@@ -13,6 +13,9 @@ import javax.swing.JComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import dataViewers.TreeViewer;
 import dataViewers.graphViewer.GraphViewer;
+import graph.DataContainerEdge;
+import graph.DataContainerVertex;
+import java.util.HashMap;
 import java.util.HashSet;
 import javax.swing.JScrollPane;
 import org.jgrapht.ListenableGraph;
@@ -31,9 +34,9 @@ public class QueryButtons extends JComponent implements ActionListener {
     private final JButton graphButton;
 
     public QueryButtons() {
-        this.sqlButton = new JButton("Execute SQL query: Select FirstName, LastName from Person where id = \"933\"");
-        this.xmlButton = new JButton("Execute XPath query: .//invoice[personId=\"10995116278711\"]/orderline");
-        this.graphButton = new JButton("Execute Graph query: ");
+        this.sqlButton = new JButton("Execute SQL query (1)");
+        this.xmlButton = new JButton("Execute XPath query (2)");
+        this.graphButton = new JButton("Execute Graph query (3)");
         setLayout(new FlowLayout());
         this.sqlButton.setFont(new Font("Arial", Font.PLAIN, 18));
         this.xmlButton.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -53,7 +56,7 @@ public class QueryButtons extends JComponent implements ActionListener {
         if (e.getSource() == this.sqlButton) {
             try {
                 String[] attributes2 = {"id", "firstname", "surname"};
-                SQLquery demo = new SQLquery(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"));
+                SQLquery demo = new SQLquery(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\demoData\\persons\\Person.csv"));
                 Table tableResult = demo.loadDemoQuery(attributes2, "933");
                 DefaultMutableTreeNode treeResult = tableResult.tabletoTree();
                 TableViewer tabelviewer = new TableViewer(tableResult);
@@ -81,24 +84,37 @@ public class QueryButtons extends JComponent implements ActionListener {
             }
             DataFrame datawindow = new DataFrame(components);
         } else if (e.getSource() == this.graphButton) {
-            ListenableGraph<String, DefaultEdge> g
-                    = new DefaultListenableGraph<>(new DefaultDirectedGraph<>(DefaultEdge.class));
-
-            String v1 = "v1";
-            String v2 = "v2";
-            String v3 = "v3";
-            String v4 = "v4";
-
-            // add some sample data (graph manipulated via JGraphX)
-            g.addVertex(v1);
-            g.addVertex(v2);
-            g.addVertex(v3);
-            g.addVertex(v4);
-
-            g.addEdge(v1, v2);
-            g.addEdge(v2, v3);
-            g.addEdge(v3, v1);
-            g.addEdge(v4, v3);
+//            ListenableGraph<String, DefaultEdge> g
+//                    = new DefaultListenableGraph<>(new DefaultDirectedGraph<>(DefaultEdge.class));
+            
+            HashMap<String, String> map1 = new HashMap<>();
+            map1.put("name", "Jeffery");
+            DataContainerVertex v1 = new DataContainerVertex("Jeffery", map1);
+            
+            HashMap<String, String> map2 = new HashMap<>();
+            map2.put("name", "University of Helsinki");
+            DataContainerVertex v2 = new DataContainerVertex("HelsinkiUniversity", map2);
+            
+            HashMap<String, String> map3 = new HashMap<>();
+            map3.put("name", "Stockholm University");
+            DataContainerVertex v3 = new DataContainerVertex("StockholmUniversity", map3);
+            
+            HashMap<String, String> map4 = new HashMap<>();
+            map4.put("since", "2018");
+            DataContainerEdge e1 = new DataContainerEdge("WORKS_FOR", map4);
+            
+            HashMap<String, String> map5 = new HashMap<>();
+            map5.put("year", "2003");
+            DataContainerEdge e2 = new DataContainerEdge("GRADUATED", map5);
+            
+            DefaultDirectedGraph graph = new DefaultDirectedGraph<>(DefaultEdge.class);
+            graph.addVertex(v1);
+            graph.addVertex(v2);
+            graph.addVertex(v3);
+            graph.addEdge(v1, v2, e1);
+            graph.addEdge(v1, v3, e2);
+            
+            ListenableGraph<Object, DefaultEdge> g = new DefaultListenableGraph<>(graph);
             
             GraphViewer graphviewer = new GraphViewer(g);
             JComponent[] components = {graphviewer.getGraphPanel()};

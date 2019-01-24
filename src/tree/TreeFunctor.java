@@ -43,7 +43,6 @@ public class TreeFunctor {
 //        }
 //        return subtreeTable;
 //    }
-    
     public Table[] runFunctor(DefaultMutableTreeNode node, HashSet<String> primaryKeys) {
         createPrimaryForeignKeys(node, primaryKeys);
         Table[] tableResult = treeToTables(node);
