@@ -1,21 +1,19 @@
 package graph;
 
-public class Edge {
-	private Vertex start;
-	private Vertex end;
-	private Object weight;
+import relationalCategory.Row;
+import java.util.Set;
+
+import org.jgrapht.graph.DefaultEdge;
+
+public class Edge extends DefaultEdge {
 	
-	public Edge(Vertex start, Vertex end, Object weight) {
-		this.start = start;
-		this.end = end;
-		this.weight = weight;
+	public Row edgeRow;
+	
+	public Edge(String[] attributes, String[] values) {
+		this.edgeRow = new Row(attributes, values);	
 	}
 	
-	public Vertex getStart() {
-		return this.start;
-	}
-	
-	public Vertex getEnd() {
-		return this.end;
+	public Row getRow() {
+		return this.edgeRow;
 	}
 }

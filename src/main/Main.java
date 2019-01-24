@@ -4,6 +4,10 @@ import GUI.GraphicsMain;
 import java.io.FileNotFoundException;
 import csvtoxml.CsvToXml;
 import newXmlReader.NewXMLReader;
+import csvtograph.CsvToGraphPreparation;
+import dataViewers.TableViewer;
+import graph.Edge;
+import java.util.HashSet;
 
 import java.io.File;
 import java.util.Scanner;
@@ -20,6 +24,7 @@ public class Main {
 
     public static void main(String args[]) throws ParserConfigurationException, FileNotFoundException {
           new GraphicsMain();
+
 //        Scanner reader = new Scanner(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"));
 //
 //        String[] attributes = reader.nextLine().split(",");
