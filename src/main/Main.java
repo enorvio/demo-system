@@ -24,6 +24,8 @@ public class Main {
 
     public static void main(String args[]) throws ParserConfigurationException, FileNotFoundException {
           new GraphicsMain();
+//          csvtograph.CsvToGraphPreparation c = new csvtograph.CsvToGraphPreparation("src/graphData/Edge.csv", "src/graphData/Node.csv");
+//          c.print();
 
 //        Scanner reader = new Scanner(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\persons\\Person.csv"));
 //

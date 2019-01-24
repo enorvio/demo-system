@@ -30,6 +30,13 @@ public class DataContainerVertex implements Serializable {
     public Collection<String> getValues() {
         return this.dataAttributes.values();
     }
+    
+    public void print() {
+    	System.out.println("type" + this.nodeType);
+    	for (String k : this.dataAttributes.keySet()) {
+    		System.out.println(k +" " + this.dataAttributes.get(k));
+    	}
+    }
 
     @Override
     public String toString() {

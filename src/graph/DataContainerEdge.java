@@ -5,7 +5,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
-public class DataContainerEdge implements Serializable {
+import org.jgrapht.graph.DefaultEdge;
+
+public class DataContainerEdge extends DefaultEdge implements Serializable {
 
     private String edgeType;
     private HashMap<String, String> dataAttributes;
@@ -29,6 +31,13 @@ public class DataContainerEdge implements Serializable {
 
     public Collection<String> getValues() {
         return this.dataAttributes.values();
+    }
+    
+    public void print() {
+    	System.out.println("type" + this.edgeType);
+    	for (String k : this.dataAttributes.keySet()) {
+    		System.out.println(k +" " + this.dataAttributes.get(k));
+    	}
     }
     
     @Override

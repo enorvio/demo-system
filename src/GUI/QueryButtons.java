@@ -1,6 +1,7 @@
 package GUI;
 
 import dataViewers.TableViewer;
+import csvtograph.CsvToGraph;
 import csvtograph.CsvToGraphPreparation;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -15,6 +16,8 @@ import dataViewers.TreeViewer;
 import dataViewers.graphViewer.GraphViewer;
 import graph.DataContainerEdge;
 import graph.DataContainerVertex;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import javax.swing.JScrollPane;
@@ -56,7 +59,7 @@ public class QueryButtons extends JComponent implements ActionListener {
         if (e.getSource() == this.sqlButton) {
             try {
                 String[] attributes2 = {"id", "firstname", "surname"};
-                SQLquery demo = new SQLquery(new File("C:\\Users\\Valter Uotila\\Desktop\\demo-system\\src\\demoData\\persons\\Person.csv"));
+                SQLquery demo = new SQLquery(new File("src/demoData.persons/Person.csv"));
                 Table tableResult = demo.loadDemoQuery(attributes2, "933");
                 DefaultMutableTreeNode treeResult = tableResult.tabletoTree();
                 TableViewer tabelviewer = new TableViewer(tableResult);
@@ -84,42 +87,68 @@ public class QueryButtons extends JComponent implements ActionListener {
             }
             DataFrame datawindow = new DataFrame(components);
         } else if (e.getSource() == this.graphButton) {
-//            ListenableGraph<String, DefaultEdge> g
-//                    = new DefaultListenableGraph<>(new DefaultDirectedGraph<>(DefaultEdge.class));
-            
-            HashMap<String, String> map1 = new HashMap<>();
-            map1.put("name", "Jeffery");
-            DataContainerVertex v1 = new DataContainerVertex("Jeffery", map1);
-            
-            HashMap<String, String> map2 = new HashMap<>();
-            map2.put("name", "University of Helsinki");
-            DataContainerVertex v2 = new DataContainerVertex("HelsinkiUniversity", map2);
-            
-            HashMap<String, String> map3 = new HashMap<>();
-            map3.put("name", "Stockholm University");
-            DataContainerVertex v3 = new DataContainerVertex("StockholmUniversity", map3);
-            
-            HashMap<String, String> map4 = new HashMap<>();
-            map4.put("since", "2018");
-            DataContainerEdge e1 = new DataContainerEdge("WORKS_FOR", map4);
-            
-            HashMap<String, String> map5 = new HashMap<>();
-            map5.put("year", "2003");
-            DataContainerEdge e2 = new DataContainerEdge("GRADUATED", map5);
-            
-            DefaultDirectedGraph graph = new DefaultDirectedGraph<>(DefaultEdge.class);
-            graph.addVertex(v1);
-            graph.addVertex(v2);
-            graph.addVertex(v3);
-            graph.addEdge(v1, v2, e1);
-            graph.addEdge(v1, v3, e2);
-            
-            ListenableGraph<Object, DefaultEdge> g = new DefaultListenableGraph<>(graph);
-            
-            GraphViewer graphviewer = new GraphViewer(g);
-            JComponent[] components = {graphviewer.getGraphPanel()};
-            DataFrame datawindow = new DataFrame(components);
-        }
-    }
+           ListenableGraph<String, DefaultEdge> g
+                    = new DefaultListenableGraph<>(new DefaultDirectedGraph<>(DefaultEdge.class));
+           //graph.addEdge(v1, v2, e1);
+           //graph.addEdge(v1, v3, e2);
+           
+           
+		try {
+			csvtograph.CsvToGraph ctg;
+			ctg = new CsvToGraph("src/graphData/Edge.csv", "src/graphData/Node.csv");
+			ctg.selectAllDefaultLabels();
+			ArrayList<DataContainerEdge> edgelist = ctg.getEdges();
+			ctg.addConnectionManually("name:  Jennifer", edgelist.get(0), "name:  University of Helsinki");
+			ctg.addConnectionManually("name:  Jennifer", edgelist.get(1), "name:  Stockholm University");
+			ListenableGraph<String, DefaultEdge> lg = ctg.getFinalGraph();
+			//lg.addEdge("name: Jennifer", "name: University of Helsinki", edgelist.get(0));
+	           
+	           //ListenableGraph<Object, DefaultEdge> g = new DefaultListenableGraph<>(graph);
+	           
+	           GraphViewer graphviewer = new GraphViewer(lg);
+	           JComponent[] components = {graphviewer.getGraphPanel()};
+	           DataFrame datawindow = new DataFrame(components);  
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+           
+           
+           
+     
 
+        	
+        	
+        	
+			
+            
+            //HashMap<String, String> map1 = new HashMap<>();
+            //map1.put("name", "Jeffery");
+            //DataContainerVertex v1 = new DataContainerVertex("Jeffery", map1);
+            
+            //HashMap<String, String> map2 = new HashMap<>();
+            //map2.put("name", "University of Helsinki");
+            //DataContainerVertex v2 = new DataContainerVertex("HelsinkiUniversity", map2);
+            
+            //HashMap<String, String> map3 = new HashMap<>();
+            //map3.put("name", "Stockholm University");
+            //DataContainerVertex v3 = new DataContainerVertex("StockholmUniversity", map3);
+            
+            //HashMap<String, String> map4 = new HashMap<>();
+            //map4.put("since", "2018");
+            //DataContainerEdge e1 = new DataContainerEdge("WORKS_FOR", map4);
+            
+            //HashMap<String, String> map5 = new HashMap<>();
+            //map5.put("year", "2003");
+            //DataContainerEdge e2 = new DataContainerEdge("GRADUATED", map5);
+            
+            
+        
+        
+        
+    }
 }
+}
+    
+
+
