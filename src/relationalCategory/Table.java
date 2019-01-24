@@ -31,9 +31,18 @@ public class Table implements Comparable<Table> {
         return this.name;
     }
 
-    public void addRow(Row record) {
-        if (record.getAttributes() == this.attributes) {
+    public boolean addRow(Row record) {
+        if (Arrays.equals(record.getAttributes(), this.attributes)) {
             this.rows.add(record);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void addRows(HashSet<Row> rows) {
+        if (Arrays.equals(rows.iterator().next().getAttributes(), this.attributes)) {
+            this.rows.addAll(rows);
         }
     }
 
@@ -88,48 +97,5 @@ public class Table implements Comparable<Table> {
             root.add(subroot);
         }
         return root;
-    }
-    
-    public void printGraphicTable() {
-        int max = 0;
-        for (String attribute : this.attributes) {
-            if (attribute.length() > max) {
-                max = attribute.length();
-            }
-        }
-        for (Row row : this.rows) {
-            for (String entry : row.getRow()) {
-                if (entry != null) {
-                    if (entry.length() > max) {
-                        max = entry.length();
-                    }
-                }
-            }
-        }
-
-        String leftAlignFormat = "| ";
-        String upAlignFormat = "+ ";
-        for (String attribute : this.attributes) {
-            leftAlignFormat += " %-" + Integer.toString(max) + "s |";
-            upAlignFormat += " %-" + Integer.toString(max) + "s +";
-        }
-        leftAlignFormat += "%n";
-        upAlignFormat += "%n";
-
-        String line = "";
-        for (int i = 0; i < max; i++) {
-            line += "-";
-        }
-
-        String[] lines = new String[this.attributes.length];
-        Arrays.fill(lines, line);
-
-        System.out.format(upAlignFormat, (Object[]) lines);
-        System.out.format(leftAlignFormat, (Object[]) this.attributes);
-        System.out.format(upAlignFormat, (Object[]) lines);
-        for (Row row : this.rows) {
-            System.out.format(leftAlignFormat, (Object[]) row.getRow());
-        }
-        System.out.format(upAlignFormat, (Object[]) lines);
     }
 }

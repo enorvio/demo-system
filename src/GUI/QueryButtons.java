@@ -11,7 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import dataViewers.TreeViewer;
-import javax.swing.JTabbedPane;
+import dataViewers.graphViewer.GraphViewer;
+import java.util.HashSet;
+import javax.swing.JScrollPane;
+import org.jgrapht.ListenableGraph;
+import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultListenableGraph;
 import queryProcessing.SQLquery;
 import queryProcessing.XPathQuery;
 import relationalCategory.Table;
@@ -51,27 +57,51 @@ public class QueryButtons extends JComponent implements ActionListener {
                 DefaultMutableTreeNode treeResult = tableResult.tabletoTree();
                 TableViewer tabelviewer = new TableViewer(tableResult);
                 TreeViewer treeviewer = new TreeViewer(treeResult);
-                JComponent[] components = {tabelviewer.getGraphicTable(), treeviewer.getGraphicTree()};
+                JComponent[] components = {treeviewer.getGraphicTree(), tabelviewer.getGraphicTable()};
                 DataFrame datawindow = new DataFrame(components);
             } catch (FileNotFoundException ex) {
                 System.out.println("Error: " + ex.getMessage());
             }
         } else if (e.getSource() == this.xmlButton) {
-            String[] attributes = {"personId", "productId", "orderDate", "totalPrice", "orderLine"};
             XPathQuery query = new XPathQuery();
             DefaultMutableTreeNode treeResult = query.loadXPathQuery();
+            DefaultMutableTreeNode treeResult2 = query.loadXPathQuery();
             TreeFunctor functor = new TreeFunctor();
-            TreeViewer treeviewer = new TreeViewer(treeResult);
-            Table[] tableResult = functor.treeToTables(treeResult);
+            TreeViewer treeviewer = new TreeViewer(treeResult2);
+            JScrollPane grapichTreeResult = treeviewer.getGraphicTree();
+            HashSet<String> primaryKeys = new HashSet<>();
+            primaryKeys.add("OrderId");
+            Table[] tableResult = functor.runFunctor(treeResult, primaryKeys);
             JComponent[] components = new JComponent[tableResult.length + 1];
-            components[0] = treeviewer.getGraphicTree();
-            for(int i = 1; i <= tableResult.length; i++) {
+            components[0] = grapichTreeResult;
+            for (int i = 1; i <= tableResult.length; i++) {
                 TableViewer tabelviewer = new TableViewer(tableResult[i - 1]);
                 components[i] = tabelviewer.getGraphicTable();
             }
             DataFrame datawindow = new DataFrame(components);
-        } else if (e.getSource() == this.xmlButton) {
-            System.out.println("Not supported yet.");
+        } else if (e.getSource() == this.graphButton) {
+            ListenableGraph<String, DefaultEdge> g
+                    = new DefaultListenableGraph<>(new DefaultDirectedGraph<>(DefaultEdge.class));
+
+            String v1 = "v1";
+            String v2 = "v2";
+            String v3 = "v3";
+            String v4 = "v4";
+
+            // add some sample data (graph manipulated via JGraphX)
+            g.addVertex(v1);
+            g.addVertex(v2);
+            g.addVertex(v3);
+            g.addVertex(v4);
+
+            g.addEdge(v1, v2);
+            g.addEdge(v2, v3);
+            g.addEdge(v3, v1);
+            g.addEdge(v4, v3);
+            
+            GraphViewer graphviewer = new GraphViewer(g);
+            JComponent[] components = {graphviewer.getGraphPanel()};
+            DataFrame datawindow = new DataFrame(components);
         }
     }
 
