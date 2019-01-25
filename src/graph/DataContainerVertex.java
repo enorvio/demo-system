@@ -27,7 +27,7 @@ public class DataContainerVertex implements Serializable {
         return this.dataAttributes.keySet();
     }
 
-    public Collection<String> getValues() {
+    public Collection<String> getData() {
         return this.dataAttributes.values();
     }
     
@@ -40,7 +40,7 @@ public class DataContainerVertex implements Serializable {
 
     @Override
     public String toString() {
-        return this.nodeType;
+        return this.nodeType + " " + this.dataAttributes.values().iterator().next();
     }
 
     @Override

@@ -29,7 +29,7 @@ public class DataContainerEdge extends DefaultEdge implements Serializable {
         return this.dataAttributes.keySet();
     }
 
-    public Collection<String> getValues() {
+    public Collection<String> getData() {
         return this.dataAttributes.values();
     }
     

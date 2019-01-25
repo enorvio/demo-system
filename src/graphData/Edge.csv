@@ -1,3 +1,3 @@
-EdgeType, Property_key, Property_value
-WORKS_FOR, since, 2018
-GRADUATED, year, 2003
+Id, EdgeType, Property_key, Property_value
+1, WORKS_FOR, since, 2018
+2, GRADUATED, year, 2003

@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class JGraphXAdapterHandler extends JApplet {
 
-    private static final Dimension DEFAULT_SIZE = new Dimension(530, 320);
+    private static final Dimension DEFAULT_SIZE = new Dimension(800, 800);
 
     private JGraphXAdapter<String, DefaultEdge> jgxAdapter;
 

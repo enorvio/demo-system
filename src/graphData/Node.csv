@@ -1,4 +1,4 @@
 Id, NodeType, Property_key, Property_value  
-Person, name, Jennifer
-Company, name, University of Helsinki
-Company, name, Stockholm University
+1, Person, name, Jennifer
+2, University, name, University of Helsinki
+3, University, name, Stockholm University
