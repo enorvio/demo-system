@@ -66,7 +66,11 @@ public class CsvToGraph {
         }
     }
 
-    public ListenableGraph<Object, DefaultEdge> getFinalGraph() {
+    public DefaultDirectedGraph<Object, DefaultEdge> getGraph() {
+        return this.graph;
+    }
+
+    public ListenableGraph<Object, DefaultEdge> getListenableGraph() {
         ListenableGraph<Object, DefaultEdge> listenableGraph = new DefaultListenableGraph<>(this.graph);
         return listenableGraph;
     }

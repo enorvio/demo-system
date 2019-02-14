@@ -8,41 +8,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import relationalCategory.Row;
 import relationalCategory.Table;
 
-public class TreeFunctor {
+public class TreeToTableFunctor {
 
-//    public Row subtreeToRow(String[] attributes, DefaultMutableTreeNode node) {
-//        int l = attributes.length;
-//        String[] row = new String[l];
-//        ArrayList<DefaultMutableTreeNode> children = Collections.list(node.children());
-//        System.out.println(children.size());
-//        if (children.size() == 1) {
-//            return subtreeToRow(attributes, children.get(0));
-//        } else {
-//            for (int i = 0; i < children.size(); i++) {
-//                if (!children.isEmpty()) {
-//                    if (children.get(i).getUserObject() instanceof String[]) {
-//                        String[] value = (String[]) children.get(i).getUserObject();
-//                        row[i] = value[1];
-//                    } else if (children.get(i).getUserObject() instanceof String) {
-//                        String value = (String) children.get(i).getUserObject();
-//                        row[i] = value;
-//                    }
-//                }
-//            }
-//            Row record = new Row(attributes, row);
-//            return record;
-//        }
-//    }
-//
-//    public Table subtreeToTable(String[] attributes, DefaultMutableTreeNode rootNode) {
-//        Table subtreeTable = new Table(" ", attributes);
-//        ArrayList<DefaultMutableTreeNode> children = Collections.list(rootNode.children());
-//        for (DefaultMutableTreeNode child : children) {
-//            Row record = subtreeToRow(attributes, child);
-//            subtreeTable.addRow(record);
-//        }
-//        return subtreeTable;
-//    }
     public Table[] runFunctor(DefaultMutableTreeNode node, HashSet<String> primaryKeys) {
         createPrimaryForeignKeys(node, primaryKeys);
         Table[] tableResult = treeToTables(node);

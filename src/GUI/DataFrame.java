@@ -9,14 +9,13 @@ public class DataFrame {
 
     private JFrame frame;
 
-    public DataFrame(JComponent[] components) {
+    public DataFrame(JComponent[] components, String[] tabHeaders) {
         this.frame = new JFrame("Data");
         frame.setSize(800, 800);
         frame.getContentPane().setLayout(new BorderLayout());
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Tree", components[0]);
-        for (int i = 1; i < components.length; i++) {
-            tabbedPane.addTab("Table", components[i]);
+        for (int i = 0; i < components.length; i++) {
+            tabbedPane.addTab(tabHeaders[i], components[i]);
         }
         frame.getContentPane().add("Center", tabbedPane);
         frame.setVisible(true);

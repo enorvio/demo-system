@@ -2,6 +2,7 @@ package dataViewers.graphViewer;
 
 import com.mxgraph.layout.*;
 import com.mxgraph.swing.*;
+import com.mxgraph.view.mxGraphView;
 import org.jgrapht.*;
 import org.jgrapht.ext.*;
 import org.jgrapht.graph.*;
@@ -9,22 +10,25 @@ import org.jgrapht.graph.*;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class JGraphXAdapterHandler extends JApplet {
 
     private static final Dimension DEFAULT_SIZE = new Dimension(800, 800);
 
     private JGraphXAdapter<String, DefaultEdge> jgxAdapter;
 
-    public void initialize(ListenableGraph g)
-    {
+    public void initialize(ListenableGraph g) {
         // create a visualization using JGraph, via an adapter
         jgxAdapter = new JGraphXAdapter<>(g);
 
         setPreferredSize(DEFAULT_SIZE);
         mxGraphComponent component = new mxGraphComponent(jgxAdapter);
+        //mxGraphView view = component.getGraph().getView();
+        //int compLen = component.getWidth();
+        //int viewLen = (int) view.getGraphBounds().getWidth();
+        //view.setScale((double) compLen / viewLen * view.getScale());
         component.setConnectable(false);
         component.getGraph().setAllowDanglingEdges(false);
+        component.zoomAndCenter();
         getContentPane().add(component);
         resize(DEFAULT_SIZE);
 
@@ -39,5 +43,7 @@ public class JGraphXAdapterHandler extends JApplet {
         layout.setMoveCircle(true);
 
         layout.execute(jgxAdapter.getDefaultParent());
+
+
     }
 }

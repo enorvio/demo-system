@@ -1,22 +1,30 @@
 package relationalCategory;
 
+import graph.DataContainerVertex;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jgrapht.ListenableGraph;
+import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultListenableGraph;
 
 public class Table implements Comparable<Table> {
 
     private final String[] attributes;
     private final HashSet<Row> rows;
     private final String name;
+    private final DefaultDirectedGraph<Object, DefaultEdge> graph;
 
     public Table(String name_beginning, String[] attributes_beginning) {
         this.rows = new HashSet();
         this.name = name_beginning;
         this.attributes = attributes_beginning;
+        this.graph = new DefaultDirectedGraph<>(DefaultEdge.class);
     }
 
     public HashSet<Row> getRows() {
@@ -97,5 +105,23 @@ public class Table implements Comparable<Table> {
             root.add(subroot);
         }
         return root;
+    }
+
+    public DefaultDirectedGraph<Object, DefaultEdge> getDirectedGraph() {
+        for (Row row : this.rows) {
+            HashMap<String, String> map = new HashMap();
+            for (int i = 0; i < row.getRow().length; i++) {
+                map.put(row.getAttributes()[i], row.getRow()[i]);
+            }
+            DataContainerVertex v = new DataContainerVertex("row", map);
+            this.graph.addVertex(v);
+        }
+        return this.graph;
+    }
+
+    public ListenableGraph<Object, DefaultEdge> getListenableGraph() {
+        this.getDirectedGraph();
+        ListenableGraph<Object, DefaultEdge> listenableGraph = new DefaultListenableGraph<>(this.graph);
+        return listenableGraph;
     }
 }
