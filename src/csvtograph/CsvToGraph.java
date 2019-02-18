@@ -26,7 +26,7 @@ public class CsvToGraph {
         this.EdgesFilename = EdgesFilename;
         this.NodesFilename = NodesFilename;
         this.preparation = new CsvToGraphPreparation(this.EdgesFilename, this.NodesFilename);
-        this.preparation.print();
+        //this.preparation.print();
         this.graph = new DefaultDirectedGraph<>(DefaultEdge.class);
         this.rawEdges = preparation.getEdges();
         this.defaultVertices = preparation.getVertices();

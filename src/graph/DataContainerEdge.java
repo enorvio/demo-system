@@ -16,6 +16,11 @@ public class DataContainerEdge extends DefaultEdge implements Serializable {
         this.edgeType = edgeType1;
         this.dataAttributes = dataAttributes1;
     }
+    
+    public DataContainerEdge(String edgeType1) {
+        this.edgeType = edgeType1;
+        this.dataAttributes = new HashMap();
+    }
 
     public String getEdgeType() {
         return this.edgeType;

@@ -1,5 +1,6 @@
 package tree;
 
+import graph.DataContainerEdge;
 import graph.DataContainerVertex;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +26,11 @@ public class TreeToGraph {
         rootmap.put(this.root.toString(), this.root.getUserObject().toString());
         DataContainerVertex v = new DataContainerVertex("root", rootmap);
         this.graph.addVertex(v);
-        walkTree(this.root);
+        walkTree(this.root, v);
+        System.out.println(this.graph.vertexSet().size());
+        //for(Object vertex : this.graph.vertexSet()) {
+        //    System.out.println(vertex);
+        //}
         return this.graph;
     }
 
@@ -34,15 +39,32 @@ public class TreeToGraph {
         ListenableGraph<Object, DefaultEdge> listenableGraph = new DefaultListenableGraph<>(this.graph);
         return listenableGraph;
     }
-    
-    private void walkTree(DefaultMutableTreeNode root) {
+
+    private void walkTree(DefaultMutableTreeNode root, DataContainerVertex parentVertex) {
         ArrayList<DefaultMutableTreeNode> children = Collections.list(root.children());
-        for(DefaultMutableTreeNode child : children) {
-            HashMap<String, String> map = new HashMap();
-            map.put(child.toString(), child.getUserObject().toString());
-            DataContainerVertex v = new DataContainerVertex(child.toString(), map);
+        HashMap<String, String> map = new HashMap<>();
+        ArrayList<DefaultMutableTreeNode> children2 = new ArrayList<>();
+        for (DefaultMutableTreeNode child : children) {
+            ArrayList<DefaultMutableTreeNode> leafChildren = Collections.list(child.children());
+            if (leafChildren.get(0).isLeaf()) {
+                map.put(child.getUserObject().toString(), leafChildren.get(0).getUserObject().toString());
+            } else {
+                children2.add(child);
+            }
+        }
+        DataContainerEdge e = new DataContainerEdge("edge");
+        if (map.isEmpty() == false) {
+            DataContainerVertex v = new DataContainerVertex(root.toString(), map);
             this.graph.addVertex(v);
-            walkTree(child);
+            this.graph.addEdge(v, parentVertex);
+            for (DefaultMutableTreeNode child : children2) {
+                walkTree(child, v);
+            }
+        } else {
+            for (DefaultMutableTreeNode child : children2) {
+                walkTree(child, parentVertex);
+            }
+
         }
     }
 }
