@@ -11,7 +11,7 @@ public class DataFrame {
 
     public DataFrame(JComponent[] components, String[] tabHeaders) {
         this.frame = new JFrame("Data");
-        frame.setSize(800, 800);
+        frame.setSize(1850, 800);
         frame.getContentPane().setLayout(new BorderLayout());
         JTabbedPane tabbedPane = new JTabbedPane();
         for (int i = 0; i < components.length; i++) {

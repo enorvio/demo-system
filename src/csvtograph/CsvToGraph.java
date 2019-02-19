@@ -46,8 +46,21 @@ public class CsvToGraph {
         }
     }
 
+    public ArrayList<DataContainerVertex> getVertices() {
+        return this.defaultVertices;
+    }
+
     public ArrayList<DataContainerEdge> getEdges() {
         return this.rawEdges;
+    }
+
+    public DefaultDirectedGraph<Object, DefaultEdge> getGraph() {
+        return this.graph;
+    }
+
+    public ListenableGraph<Object, DefaultEdge> getListenableGraph() {
+        ListenableGraph<Object, DefaultEdge> listenableGraph = new DefaultListenableGraph<>(this.graph);
+        return listenableGraph;
     }
 
     public void selectAllDefaultLabels() {
@@ -64,18 +77,5 @@ public class CsvToGraph {
         if (this.defaultVertices.contains(v1) && this.defaultVertices.contains(v2) && this.rawEdges.contains(e)) {
             this.graph.addEdge(v1, v2, e);
         }
-    }
-
-    public DefaultDirectedGraph<Object, DefaultEdge> getGraph() {
-        return this.graph;
-    }
-
-    public ListenableGraph<Object, DefaultEdge> getListenableGraph() {
-        ListenableGraph<Object, DefaultEdge> listenableGraph = new DefaultListenableGraph<>(this.graph);
-        return listenableGraph;
-    }
-
-    public ArrayList<DataContainerVertex> getVertices() {
-        return this.defaultVertices;
     }
 }

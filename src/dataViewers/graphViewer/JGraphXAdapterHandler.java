@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class JGraphXAdapterHandler extends JApplet {
 
-    private static final Dimension DEFAULT_SIZE = new Dimension(800, 800);
+    private static final Dimension DEFAULT_SIZE = new Dimension(1850, 800);
     private static final String[] COLORS = {"#e0d48f", "#a2e5cd", "#99a8db", "#e0a6bb", "#cce0a6", "#b1ed40", "#a1bfed"};
 
     private JGraphXAdapter<Object, DefaultEdge> jgxAdapter;

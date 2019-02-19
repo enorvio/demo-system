@@ -15,6 +15,7 @@ import dataViewers.TreeViewer;
 import dataViewers.graphViewer.GraphViewer;
 import graph.DataContainerEdge;
 import graph.DataContainerVertex;
+import graph.GraphToEdgeVerticeTables;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -107,9 +108,29 @@ public class QueryButtons extends JComponent implements ActionListener {
                 ctg.addConnectionManually(nodelist.get(0), edgelist.get(1), nodelist.get(2));
                 ListenableGraph<Object, DefaultEdge> lg = ctg.getListenableGraph();
                 GraphViewer graphviewer = new GraphViewer(lg);
-                JComponent[] components = {graphviewer.getGraphPanel()};
-                String[] tabHeaders = {"Graph"};
+
+                DefaultDirectedGraph graph = ctg.getGraph();
+                GraphToEdgeVerticeTables graphTables = new GraphToEdgeVerticeTables(graph);
+                Table[] verticeTables = graphTables.getVerticeTables();
+                Table[] edgeTables = graphTables.getEdgeTables();
+                JComponent[] components = new JComponent[verticeTables.length + edgeTables.length + 1];
+                components[0] = graphviewer.getGraphPanel();
+                String[] tabHeaders = new String[verticeTables.length + edgeTables.length + 1];
+                tabHeaders[0] = "Graph";
+                for (int i = 1; i < verticeTables.length + 1; i++) {
+                    TableViewer tabelviewer = new TableViewer(verticeTables[i - 1]);
+                    components[i] = tabelviewer.getGraphicTable();
+                    tabHeaders[i] = "Vertice Table";
+                }
+                
+                for (int i = 0; i < edgeTables.length; i++) {
+                    TableViewer tabelviewer = new TableViewer(edgeTables[i]);
+                    components[verticeTables.length + 1 + i] = tabelviewer.getGraphicTable();
+                    tabHeaders[verticeTables.length + 1 + i] = "Edge Table";
+                }
+
                 DataFrame datawindow = new DataFrame(components, tabHeaders);
+
             } catch (FileNotFoundException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
