@@ -1,4 +1,4 @@
-package csvtograph;
+package csvConverters.csvToGraph;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -8,8 +8,8 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultListenableGraph;
 
-import graph.DataContainerEdge;
-import graph.DataContainerVertex;
+import graphCategory.DataContainerEdge;
+import graphCategory.DataContainerVertex;
 
 public class CsvToGraph {
 

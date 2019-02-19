@@ -1,4 +1,4 @@
-package tree;
+package treeCategory;
 
 import java.util.ArrayList;
 import java.util.Arrays;

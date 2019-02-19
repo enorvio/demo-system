@@ -1,7 +1,7 @@
-package tree;
+package treeCategory;
 
-import graph.DataContainerEdge;
-import graph.DataContainerVertex;
+import graphCategory.DataContainerEdge;
+import graphCategory.DataContainerVertex;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

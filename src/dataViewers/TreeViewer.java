@@ -3,18 +3,18 @@ package dataViewers;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.tree.*;
-import newXmlReader.NewXMLReader;
+import xmlReader.XMLReader;
 
 public class TreeViewer {
 
-    private NewXMLReader reader;
+    private XMLReader reader;
     private String filename;
     private JFrame frame;
     private JScrollPane layer;
 
     public TreeViewer(String filename) {
         this.filename = filename;
-        this.reader = new NewXMLReader(filename);
+        this.reader = new XMLReader(filename);
         this.frame = new JFrame("Tree View:" + filename);
         frame.setSize(800, 800);
         frame.getContentPane().setLayout(new BorderLayout());

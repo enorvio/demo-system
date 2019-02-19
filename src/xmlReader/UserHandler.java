@@ -1,4 +1,4 @@
-package newXmlReader;
+package xmlReader;
 
 import javax.swing.tree.*;
 

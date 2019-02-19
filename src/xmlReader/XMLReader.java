@@ -1,4 +1,4 @@
-package newXmlReader;
+package xmlReader;
 
 import java.io.File;
 
@@ -6,14 +6,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-public class NewXMLReader {
+public class XMLReader {
 
     public String filename;
     public DefaultMutableTreeNode tree;
     public relationalCategory.Table invoices;
     public relationalCategory.Table orderlines;
 
-    public NewXMLReader(String filename) {
+    public XMLReader(String filename) {
         try {
             File inputFile = new File(filename);
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -28,7 +28,7 @@ public class NewXMLReader {
         }
     }
 
-    public NewXMLReader(String filename, DefaultMutableTreeNode root) {
+    public XMLReader(String filename, DefaultMutableTreeNode root) {
         try {
             File inputFile = new File(filename);
             SAXParserFactory factory = SAXParserFactory.newInstance();

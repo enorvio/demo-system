@@ -1,6 +1,6 @@
 package relationalCategory;
 
-import graph.DataContainerVertex;
+import graphCategory.DataContainerVertex;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

@@ -6,7 +6,7 @@ import com.mxgraph.swing.*;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxGraphView;
 import com.mxgraph.view.mxStylesheet;
-import graph.DataContainerVertex;
+import graphCategory.DataContainerVertex;
 import org.jgrapht.*;
 import org.jgrapht.ext.*;
 import org.jgrapht.graph.*;

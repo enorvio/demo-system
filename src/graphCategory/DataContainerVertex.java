@@ -1,29 +1,22 @@
-package graph;
+package graphCategory;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
-import org.jgrapht.graph.DefaultEdge;
+public class DataContainerVertex implements Serializable {
 
-public class DataContainerEdge extends DefaultEdge implements Serializable {
-
-    private String edgeType;
+    private String nodeType;
     private HashMap<String, String> dataAttributes;
 
-    public DataContainerEdge(String edgeType1, HashMap<String, String> dataAttributes1) {
-        this.edgeType = edgeType1;
+    public DataContainerVertex(String nodeType1, HashMap<String, String> dataAttributes1) {
+        this.nodeType = nodeType1;
         this.dataAttributes = dataAttributes1;
     }
-    
-    public DataContainerEdge(String edgeType1) {
-        this.edgeType = edgeType1;
-        this.dataAttributes = new HashMap();
-    }
 
-    public String getEdgeType() {
-        return this.edgeType;
+    public String getNodeType() {
+        return this.nodeType;
     }
 
     public HashMap<String, String> getDataAndAttributes() {
@@ -39,27 +32,27 @@ public class DataContainerEdge extends DefaultEdge implements Serializable {
     }
     
     public void print() {
-    	System.out.println("type" + this.edgeType);
+    	System.out.println("type" + this.nodeType);
     	for (String k : this.dataAttributes.keySet()) {
     		System.out.println(k +" " + this.dataAttributes.get(k));
     	}
     }
-    
+
     @Override
     public String toString() {
-        return this.edgeType;
+        return this.nodeType; // + " " + this.dataAttributes.keySet().toString() + " " + this.dataAttributes.values().toString();
     }
 
     @Override
     public int hashCode() {
-        return this.edgeType.hashCode() + this.dataAttributes.hashCode();
+        return this.nodeType.hashCode() + this.dataAttributes.hashCode();
     }
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof DataContainerEdge) {
-            DataContainerEdge object = (DataContainerEdge) o;
-            if(this.edgeType.equals(object.getEdgeType()) && this.dataAttributes.equals(object.getDataAndAttributes())) {
+        if(o instanceof DataContainerVertex) {
+            DataContainerVertex object = (DataContainerVertex) o;
+            if(this.nodeType.equals(object.getNodeType()) && this.dataAttributes.equals(object.getDataAndAttributes())) {
                 return true;
             }
         }
