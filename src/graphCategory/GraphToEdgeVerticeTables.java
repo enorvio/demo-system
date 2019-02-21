@@ -44,18 +44,25 @@ public class GraphToEdgeVerticeTables {
         Table[] tableArray = tableList.toArray(new Table[0]);
         return tableArray;
     }
-    
+
     public Table[] getEdgeTables() {
         ArrayList<Table> edgeList = new ArrayList<>();
         HashMap<Set<String>, Table> tableMap = new HashMap<>();
+
         for (Object edge1 : this.graph.edgeSet()) {
+            DataContainerVertex source = (DataContainerVertex) this.graph.getEdgeSource(edge1);
+            DataContainerVertex target = (DataContainerVertex) this.graph.getEdgeTarget(edge1);
             if (edge1 instanceof DataContainerEdge) {
                 DataContainerEdge edge = (DataContainerEdge) edge1;
-                String[] attributes = edge.getAttributes().stream().toArray(String[]::new);
+                String[] firstAttributes = edge.getAttributes().stream().toArray(String[]::new);
+                String[] sourceTarget = {"source", "target"};
+                String[] attributes = concat(firstAttributes, sourceTarget);
                 String[] data = new String[attributes.length];
-                for (int i = 0; i < attributes.length; i++) {
+                for (int i = 0; i < firstAttributes.length; i++) {
                     data[i] = edge.getDataAndAttributes().get(attributes[i]);
                 }
+                data[firstAttributes.length] = source.getDataAndAttributes().toString();
+                data[firstAttributes.length + 1] = target.getDataAndAttributes().toString();
                 Row row = new Row(attributes, data);
                 if (tableMap.containsKey(edge.getAttributes())) {
                     Table newTable = tableMap.get(edge.getAttributes());
@@ -71,5 +78,18 @@ public class GraphToEdgeVerticeTables {
         }
         Table[] tableArray = edgeList.toArray(new Table[0]);
         return tableArray;
-    } 
+    }
+
+    private String[] concat(String[] first, String[] second) {
+        int sum = first.length + second.length;
+        String[] newString = new String[sum];
+        for (int i = 0; i < sum; i++) {
+            if (i < first.length) {
+                newString[i] = first[i];
+            } else {
+                newString[i] = second[i - first.length];
+            }
+        }
+        return newString;
+    }
 }

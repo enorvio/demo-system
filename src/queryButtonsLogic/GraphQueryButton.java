@@ -3,10 +3,12 @@ package queryButtonsLogic;
 import GUI.DataFrame;
 import csvConverters.csvToGraph.CsvToGraph;
 import dataViewers.TableViewer;
+import dataViewers.TreeViewer;
 import dataViewers.graphViewer.GraphViewer;
 import graphCategory.DataContainerEdge;
 import graphCategory.DataContainerVertex;
 import graphCategory.GraphToEdgeVerticeTables;
+import graphCategory.GraphToTree;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javax.swing.JComponent;
@@ -33,21 +35,27 @@ public class GraphQueryButton {
             GraphToEdgeVerticeTables graphTables = new GraphToEdgeVerticeTables(graph);
             Table[] verticeTables = graphTables.getVerticeTables();
             Table[] edgeTables = graphTables.getEdgeTables();
-            JComponent[] components = new JComponent[verticeTables.length + edgeTables.length + 1];
+            JComponent[] components = new JComponent[verticeTables.length + edgeTables.length + 2];
             components[0] = graphviewer.getGraphPanel();
-            String[] tabHeaders = new String[verticeTables.length + edgeTables.length + 1];
+            String[] tabHeaders = new String[verticeTables.length + edgeTables.length + 2];
             tabHeaders[0] = "Graph";
-            for (int i = 1; i < verticeTables.length + 1; i++) {
-                TableViewer tabelviewer = new TableViewer(verticeTables[i - 1]);
+            tabHeaders[1] = "Tree";
+            for (int i = 2; i < verticeTables.length + 2; i++) {
+                TableViewer tabelviewer = new TableViewer(verticeTables[i - 2]);
                 components[i] = tabelviewer.getGraphicTable();
-                tabHeaders[i] = "Vertice Table";
+                tabHeaders[i] = "Vertice table";
             }
 
             for (int i = 0; i < edgeTables.length; i++) {
                 TableViewer tabelviewer = new TableViewer(edgeTables[i]);
-                components[verticeTables.length + 1 + i] = tabelviewer.getGraphicTable();
-                tabHeaders[verticeTables.length + 1 + i] = "Edge Table";
+                components[verticeTables.length + 2 + i] = tabelviewer.getGraphicTable();
+                tabHeaders[verticeTables.length + 2 + i] = "Edge table";
             }
+
+            GraphToTree graphToTree = new GraphToTree(graph);
+
+            TreeViewer treeviewer = new TreeViewer(graphToTree.getTree());
+            components[1] = treeviewer.getGraphicTree();
 
             DataFrame datawindow = new DataFrame(components, tabHeaders);
 

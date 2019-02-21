@@ -28,9 +28,6 @@ public class TreeToGraph {
         this.graph.addVertex(v);
         walkTree(this.root, v);
         System.out.println(this.graph.vertexSet().size());
-        //for(Object vertex : this.graph.vertexSet()) {
-        //    System.out.println(vertex);
-        //}
         return this.graph;
     }
 
