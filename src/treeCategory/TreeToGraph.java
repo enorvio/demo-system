@@ -24,7 +24,7 @@ public class TreeToGraph {
     public DefaultDirectedGraph<Object, DefaultEdge> getDirectedGraph() {
         HashMap<String, String> rootmap = new HashMap();
         rootmap.put(this.root.toString(), this.root.getUserObject().toString());
-        DataContainerVertex v = new DataContainerVertex("root", rootmap);
+        DataContainerVertex v = new DataContainerVertex("root", rootmap, 0);
         this.graph.addVertex(v);
         walkTree(this.root, v);
         System.out.println(this.graph.vertexSet().size());
@@ -51,7 +51,7 @@ public class TreeToGraph {
         }
         DataContainerEdge e = new DataContainerEdge("edge");
         if (map.isEmpty() == false) {
-            DataContainerVertex v = new DataContainerVertex(root.toString(), map);
+            DataContainerVertex v = new DataContainerVertex(root.toString(), map, root.hashCode());
             this.graph.addVertex(v);
             this.graph.addEdge(v, parentVertex);
             for (DefaultMutableTreeNode child : children2) {

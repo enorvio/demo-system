@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import graphCategory.DataContainerEdge;
+import graphCategory.DataContainerVertex;
+
 public class CsvToGraphPreparation {
 
-    private ArrayList<graphCategory.DataContainerEdge> edges;
-    private ArrayList<graphCategory.DataContainerVertex> vertices;
+    private ArrayList<DataContainerEdge> edges;
+    private ArrayList<DataContainerVertex> vertices;
     private String csvEdge;
     private String csvNode;
 
@@ -30,7 +33,7 @@ public class CsvToGraphPreparation {
                 for (int i = 2; i < currentRow.length - 1; i += 2) {
                     currentAttributes.put(currentRow[i], currentRow[i + 1]);
                 }
-                graphCategory.DataContainerEdge currentEdge = new graphCategory.DataContainerEdge(currentType, currentAttributes);
+                DataContainerEdge currentEdge = new DataContainerEdge(currentType, currentAttributes);
                 this.edges.add(currentEdge);
             }
         }
@@ -44,7 +47,7 @@ public class CsvToGraphPreparation {
                 for (int i = 2; i < currentRow.length - 1; i += 2) {
                     currentAttributes.put(currentRow[i], currentRow[i + 1]);
                 }
-                graphCategory.DataContainerVertex currentVertex = new graphCategory.DataContainerVertex(currentType, currentAttributes);
+                DataContainerVertex currentVertex = new DataContainerVertex(currentType, currentAttributes, currentAttributes.hashCode());
                 this.vertices.add(currentVertex);
             }
         }
@@ -53,20 +56,20 @@ public class CsvToGraphPreparation {
 
     public void print() {
         System.out.println("Edges:");
-        for (graphCategory.DataContainerEdge e : this.edges) {
+        for (DataContainerEdge e : this.edges) {
             e.print();
         }
         System.out.println("Vertices:");
-        for (graphCategory.DataContainerVertex v : this.vertices) {
+        for (DataContainerVertex v : this.vertices) {
             v.print();
         }
     }
 
-    public ArrayList<graphCategory.DataContainerEdge> getEdges() {
+    public ArrayList<DataContainerEdge> getEdges() {
         return this.edges;
     }
 
-    public ArrayList<graphCategory.DataContainerVertex> getVertices() {
+    public ArrayList<DataContainerVertex> getVertices() {
         return this.vertices;
     }
 

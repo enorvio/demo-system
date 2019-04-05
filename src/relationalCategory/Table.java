@@ -21,7 +21,7 @@ public class Table implements Comparable<Table> {
     private final DefaultDirectedGraph<Object, DefaultEdge> graph;
 
     public Table(String name_beginning, String[] attributes_beginning) {
-        this.rows = new HashSet();
+        this.rows = new HashSet<Row>();
         this.name = name_beginning;
         this.attributes = attributes_beginning;
         this.graph = new DefaultDirectedGraph<>(DefaultEdge.class);
@@ -109,11 +109,11 @@ public class Table implements Comparable<Table> {
 
     public DefaultDirectedGraph<Object, DefaultEdge> getDirectedGraph() {
         for (Row row : this.rows) {
-            HashMap<String, String> map = new HashMap();
+            HashMap<String, String> map = new HashMap<String, String>();
             for (int i = 0; i < row.getRow().length; i++) {
                 map.put(row.getAttributes()[i], row.getRow()[i]);
             }
-            DataContainerVertex v = new DataContainerVertex("row", map);
+            DataContainerVertex v = new DataContainerVertex("row", map, this.name.hashCode());
             this.graph.addVertex(v);
         }
         return this.graph;

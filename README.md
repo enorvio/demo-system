@@ -1,3 +1,5 @@
 # Category Theory in Multi-model Databases: demo-system
 
 This is a demo system for category theory and multi-model databases. The logic of the program is informally and shortly described [here](https://www.overleaf.com/read/wffwwvrwqsnk).
+
+The system contains two graphical interfaces: the old one is made with Java and the new one connects to [this interface](https://github.com/valterUo/demo-system-frontend). This demo contains also a simple functionality to run ML code. You need [Spring framework](https://spring.io/) to run this demo. This demo creates a restful API that the frontend uses. At the moment this demo is the easiest to run in Eclipse which has Spring installed. You can follow [this guide](https://www.eclipse.org/community/eclipse_newsletter/2018/february/springboot.php) to learn how to install Spring.

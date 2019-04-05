@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
@@ -43,7 +45,13 @@ public class QueryButtons extends JComponent implements ActionListener {
             XPathQueryButton xpathbutton = new XPathQueryButton();
             xpathbutton.execute();
         } else if (e.getSource() == this.graphButton) {
-            GraphQueryButton graphbutton = new GraphQueryButton();
+            GraphQueryButton graphbutton = null;
+			try {
+				graphbutton = new GraphQueryButton();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             graphbutton.execute();
         }
     }

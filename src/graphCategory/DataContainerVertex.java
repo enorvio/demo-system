@@ -8,11 +8,13 @@ import java.util.Set;
 public class DataContainerVertex implements Serializable {
 
     private String nodeType;
+    private int id;
     private HashMap<String, String> dataAttributes;
 
-    public DataContainerVertex(String nodeType1, HashMap<String, String> dataAttributes1) {
+    public DataContainerVertex(String nodeType1, HashMap<String, String> dataAttributes1, int id) {
         this.nodeType = nodeType1;
         this.dataAttributes = dataAttributes1;
+        this.id = id;
     }
 
     public String getNodeType() {
@@ -31,6 +33,10 @@ public class DataContainerVertex implements Serializable {
         return this.dataAttributes.values();
     }
     
+    public Integer getId() {
+    	return this.id;
+    }
+    
     public void print() {
     	System.out.println("type" + this.nodeType);
     	for (String k : this.dataAttributes.keySet()) {
@@ -40,7 +46,7 @@ public class DataContainerVertex implements Serializable {
 
     @Override
     public String toString() {
-        return this.nodeType; // + " " + this.dataAttributes.keySet().toString() + " " + this.dataAttributes.values().toString();
+        return this.nodeType; //+ " " + this.dataAttributes.keySet().toString() + " " + this.dataAttributes.values().toString();
     }
 
     @Override
@@ -58,4 +64,22 @@ public class DataContainerVertex implements Serializable {
         }
         return false;
     }
+
+	public HashMap<String, String> getDataAttributes() {
+		return dataAttributes;
+	}
+
+	public void setDataAttributes(HashMap<String, String> dataAttributes) {
+		this.dataAttributes = dataAttributes;
+	}
+
+	public void setNodeType(String nodeType) {
+		this.nodeType = nodeType;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+    
+    
 }

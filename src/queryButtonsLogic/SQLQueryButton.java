@@ -27,7 +27,7 @@ public class SQLQueryButton {
             TreeViewer treeviewer = new TreeViewer(treeResult);
             JComponent[] components = {treeviewer.getGraphicTree(), graphviewer.getGraphPanel(), tabelviewer.getGraphicTable()};
             String[] tabHeaders = {"Tree", "Graph", "Table"};
-            DataFrame datawindow = new DataFrame(components, tabHeaders);
+            new DataFrame(components, tabHeaders);
         } catch (FileNotFoundException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
